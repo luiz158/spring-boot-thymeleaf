@@ -1,4 +1,4 @@
-package pl.codeleak.demos.sbt.home;
+package pl.codeleak.demos.sbt.thymeleaf;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
@@ -36,6 +37,12 @@ class ThymeleafObjects {
         return "th-objects";
     }
 
+    @GetMapping("/flash-attr")
+    String flashAttributes(RedirectAttributes ra) {
+        ra.addFlashAttribute("flash", "Flash Demo");
+        return "redirect:/model-attr";
+    }
+
     @Configuration
     public class MyConfiguration {
         @Bean(name = "urlService")
@@ -47,4 +54,5 @@ class ThymeleafObjects {
     public interface UrlService {
         String getApplicationUrl();
     }
+
 }
